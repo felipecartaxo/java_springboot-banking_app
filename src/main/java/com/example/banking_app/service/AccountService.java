@@ -17,4 +17,9 @@ public class AccountService {
     public Account createAccount(Account account) {
         return accountRepository.save(account);
     }
+
+    // Retorna uma conta a partir de um id
+    public Optional<Account> getAccount(Long id) {
+        return accountRepository.findById(id);
+    }
 }
