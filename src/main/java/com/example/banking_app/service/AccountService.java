@@ -33,4 +33,19 @@ public class AccountService {
         // Salva a conta atualizada no banco de dados e, após ser salvo no banco, retorna como resultado do método
         return accountRepository.save(account);
     }
+
+    // Realiza o saque em uma conta. De forma análoga ao método acima, aqui iremos passar também o id da conta onde realizaremos o saque e o valor do saque propriamente dito
+    public Account withdraw(Long id, double amount) {
+        // Busca a conta associada ao id passado como parâmetro do método e verifica se o Optional<Account> contém um valor. Se não contiver, lança uma exceção
+        Account account = getAccount(id).orElseThrow(() -> new RuntimeException("Account not found"));
+        // Verifica se a conta possui saldo suficiente para a realização do saque
+        if (account.getBalance() < amount) {
+            throw new RuntimeException("Insufficient funds");
+        }
+        // Caso possua saldo suficiente, então atualiza o saldo da conta
+        account.setBalance(account.getBalance() - amount);
+
+        // Salva a conta atualizada no banco de dados e, após ser salvo no banco, retorna como resultado do método
+        return accountRepository.save(account);
+    }
 }
