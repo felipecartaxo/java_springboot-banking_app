@@ -22,4 +22,15 @@ public class AccountService {
     public Optional<Account> getAccount(Long id) {
         return accountRepository.findById(id);
     }
+
+    // Realiza o depósito em uma conta. Aqui iremos passar o id da conta que receberá o depósito e o valor do depósito propriamente dito
+    public Account deposit(Long id, double amount) {
+        // Busca a conta associada ao id passado como parâmetro do método e verifica se o Optional<Account> contém um valor. Se não contiver, lança uma exceção
+        Account account = getAccount(id).orElseThrow(() -> new RuntimeException("Account not found"));
+        // Atualiza o saldo da conta
+        account.setBalance(account.getBalance() + amount);
+
+        // Salva a conta atualizada no banco de dados e, após ser salvo no banco, retorna como resultado do método
+        return accountRepository.save(account);
+    }
 }
