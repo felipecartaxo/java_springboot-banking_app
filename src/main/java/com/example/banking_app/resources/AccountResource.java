@@ -32,7 +32,7 @@ public class AccountResource { // Classe que disponibiliza as regras de negócio
     }
 
     @PostMapping("{id}/withdraw") // @PostMapping("{id}/withdraw"): Responde a requisições POST para /api/accounts/{id}/withdraw. Usado para realizar saques em uma conta específica
-    public Account withdraw (@PathVariable Long id, Map<String, Double> request) { // Extrai o id da conta a partir da URL. O corpo da requisição contém um Map de chave-valor, onde a chave é "amount" e o valor é o próprio valor do saque
+    public Account withdraw (@PathVariable Long id, @RequestBody Map<String, Double> request) { // Extrai o id da conta a partir da URL. O corpo da requisição contém um Map de chave-valor, onde a chave é "amount" e o valor é o próprio valor do saque
         Double amount = request.get("amount"); // O método extrai o valor associado à chave "amount" no request body
 
         return accountService.withdraw(id, amount); // Chama o serviço accountService.withdraw(id, amount), que executa a lógica do saque. Após a operação, a conta atualizada é retornada
