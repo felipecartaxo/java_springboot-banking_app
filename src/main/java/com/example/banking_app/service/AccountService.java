@@ -20,12 +20,14 @@ public class AccountService {
 
     // Retorna uma conta a partir de um id
     public Optional<Account> getAccount(Long id) {
+        // Considere lançar uma exceção caso a conta não seja encontrada
+
         return accountRepository.findById(id);
     }
 
-    // Realiza o depósito em uma conta. Aqui iremos passar o id da conta que receberá o depósito e o valor do depósito propriamente dito
+    // Realiza o depósito em uma conta. Aqui iremos passar o id da conta que receberá o depósito e o valor do depósito
     public Account deposit(Long id, double amount) {
-        // Busca a conta associada ao id passado como parâmetro do método e verifica se o Optional<Account> contém um valor. Se não contiver, lança uma exceção
+        // Busca a conta associada ao id acima e verifica se o Optional<Account> contém um valor. Se não tiver, lança uma exceção
         Account account = getAccount(id).orElseThrow(() -> new RuntimeException("Account not found"));
         // Atualiza o saldo da conta
         account.setBalance(account.getBalance() + amount);
@@ -34,7 +36,7 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    // Realiza o saque em uma conta. De forma análoga ao método acima, aqui iremos passar também o id da conta onde realizaremos o saque e o valor do saque propriamente dito
+    // Realiza o saque em uma conta. De forma análoga ao método acima, aqui iremos passar também o id da conta onde realizaremos o saque e o valor do saque
     public Account withdraw(Long id, double amount) {
         // Busca a conta associada ao id passado como parâmetro do método e verifica se o Optional<Account> contém um valor. Se não contiver, lança uma exceção
         Account account = getAccount(id).orElseThrow(() -> new RuntimeException("Account not found"));
