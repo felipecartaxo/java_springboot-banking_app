@@ -3,6 +3,7 @@ package com.example.banking_app.resources;
 import com.example.banking_app.entities.Account;
 import com.example.banking_app.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -36,5 +37,12 @@ public class AccountResource { // Classe que disponibiliza as regras de negócio
         Double amount = request.get("amount"); // O método extrai o valor associado à chave "amount" no request body
 
         return accountService.withdraw(id, amount); // Chama o serviço accountService.withdraw(id, amount), que executa a lógica do saque. Após a operação, a conta atualizada é retornada
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete (@PathVariable Long id) {
+        accountService.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

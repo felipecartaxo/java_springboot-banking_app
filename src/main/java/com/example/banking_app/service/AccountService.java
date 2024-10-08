@@ -3,6 +3,7 @@ package com.example.banking_app.service;
 import com.example.banking_app.entities.Account;
 import com.example.banking_app.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -49,5 +50,17 @@ public class AccountService {
 
         // Salva a conta atualizada no banco de dados e, após ser salvo no banco, retorna como resultado do método
         return accountRepository.save(account);
+    }
+
+    public void delete(Long id) {
+        try {
+            accountRepository.deleteById(id); // Se a conta existir, a mesma será apagada
+        }
+        catch (EmptyResultDataAccessException e) { // Caso a conta não exista
+            System.out.println("Account not found");
+        }
+        catch(Exception e) { // Lança exceção genérica
+            System.out.println("An error has occurred");
+        }
     }
 }
