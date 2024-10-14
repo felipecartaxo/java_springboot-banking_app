@@ -52,6 +52,10 @@ cd .\main\java\com\example\banking_app\
 BankingAppApplication.java
 ```
 
+# Como utilizar a API:
+
+- Endpoints:
+
 # Autor
 
 Felipe Cartaxo de Freitas
